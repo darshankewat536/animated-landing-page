@@ -1,0 +1,2219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astral Voyages | Luxury Space Tourism</title>
+    <style>
+        /* Reset and Base Styles */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #8A2BE2;
+            --primary-dark: #6A1CB2;
+            --secondary: #FF3E9D;
+            --secondary-dark: #D93282;
+            --accent: #00F5FF;
+            --accent-dark: #00C5CC;
+            --accent2: #7DF9FF;
+            --dark: #0A0A1F;
+            --darker: #050510;
+            --light: #FFFFFF;
+            --text-dim: rgba(255, 255, 255, 0.7);
+        }
+        
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            cursor: default;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--darker);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary), var(--secondary));
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(var(--secondary), var(--accent));
+        }
+        
+        /* Aurora Background */
+        .aurora-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .aurora {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.4;
+        }
+        
+        .aurora-1 {
+            background: radial-gradient(ellipse at bottom, rgba(138, 43, 226, 0.2) 0%, transparent 70%);
+            animation: aurora-movement 15s ease infinite alternate;
+        }
+        
+        .aurora-2 {
+            background: radial-gradient(ellipse at top, rgba(0, 245, 255, 0.2) 0%, transparent 70%);
+            animation: aurora-movement 20s ease infinite alternate-reverse;
+        }
+        
+        .aurora-3 {
+            background: radial-gradient(ellipse at center, rgba(255, 62, 157, 0.15) 0%, transparent 70%);
+            animation: aurora-movement 25s ease infinite alternate;
+        }
+        
+        @keyframes aurora-movement {
+            0% {
+                transform: translate(-20%, -20%) rotate(0deg);
+            }
+            50% {
+                transform: translate(10%, 10%) rotate(180deg);
+            }
+            100% {
+                transform: translate(-10%, 20%) rotate(360deg);
+            }
+        }
+        
+        /* Parallax Container */
+        .parallax-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            will-change: transform;
+        }
+        
+        /* Stars Background */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            perspective: 500px;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle var(--duration, 5s) infinite var(--delay, 0s);
+        }
+        
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: var(--opacity, 1);
+                transform: scale(1);
+            }
+        }
+        
+        .shooting-star {
+            position: absolute;
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #fff, transparent);
+            opacity: 0;
+            transform: rotate(var(--angle));
+            animation: shooting var(--duration, 5s) infinite var(--delay, 0s);
+        }
+        
+        @keyframes shooting {
+            0% {
+                opacity: 0;
+                transform: translateX(-100px) translateY(0) rotate(var(--angle));
+            }
+            10%, 15% {
+                opacity: 1;
+            }
+            30% {
+                opacity: 0;
+                transform: translateX(calc(100vw + 100px)) translateY(100px) rotate(var(--angle));
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(calc(100vw + 100px)) translateY(100px) rotate(var(--angle));
+            }
+        }
+        
+        /* Space Debris */
+        .space-debris {
+            position: absolute;
+            width: var(--size);
+            height: var(--size);
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float-debris var(--duration) linear infinite;
+            opacity: 0.3;
+        }
+        
+        @keyframes float-debris {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            100% {
+                transform: translate(var(--translateX), var(--translateY)) rotate(360deg);
+            }
+        }
+        
+        /* Cursor Particles */
+        .cursor-particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        .cursor-particle {
+            position: absolute;
+            width: var(--size, 5px);
+            height: var(--size, 5px);
+            background: var(--color, var(--accent));
+            border-radius: 50%;
+            opacity: var(--opacity, 0.7);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        /* Header and Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            z-index: 100;
+            transition: all 0.4s ease;
+        }
+        
+        header.scrolled {
+            background-color: rgba(10, 10, 31, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--light);
+            position: relative;
+        }
+        
+        .logo-icon {
+            position: relative;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .logo-planet {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            top: 5px;
+            left: 5px;
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.7);
+            animation: pulse-logo 3s infinite alternate;
+        }
+        
+        @keyframes pulse-logo {
+            0% {
+                box-shadow: 0 0 15px rgba(138, 43, 226, 0.7);
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(138, 43, 226, 1);
+            }
+        }
+        
+        .logo-ring {
+            position: absolute;
+            width: 40px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            top: 12px;
+            left: 0;
+            transform: rotateX(75deg);
+            animation: rotate-ring 10s linear infinite;
+        }
+        
+        @keyframes rotate-ring {
+            0% {
+                transform: rotateX(75deg) rotateZ(0deg);
+            }
+            100% {
+                transform: rotateX(75deg) rotateZ(360deg);
+            }
+        }
+        
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+        
+        .logo-text::after {
+            content: 'PREMIUM';
+            position: absolute;
+            top: -10px;
+            right: -15px;
+            font-size: 0.5rem;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: var(--light);
+            -webkit-text-fill-color: var(--light);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            position: relative;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-links a:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-item.has-notification::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            animation: pulse-notification 1.5s infinite;
+        }
+        
+        @keyframes pulse-notification {
+            0% {
+                transform: scale(0.8);
+                box-shadow: 0 0 0 0 rgba(255, 62, 157, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(255, 62, 157, 0);
+            }
+            100% {
+                transform: scale(0.8);
+            }
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--light);
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.5);
+        }
+        
+        .cta-button:hover::before {
+            left: 0;
+        }
+        
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 100%;
+            top: 0;
+            left: -100px;
+            background: rgba(255, 255, 255, 0.3);
+            transform: skewX(-15deg);
+            animation: shine-button 6s infinite;
+        }
+        
+        @keyframes shine-button {
+            0% {
+                left: -100px;
+            }
+            20% {
+                left: 100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 0 2rem;
+            overflow: hidden;
+            z-index: 2;
+        }
+        
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .hero-text {
+            width: 50%;
+            padding-right: 2rem;
+            animation: fadeInUp 1.2s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-tagline {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            animation: pulseText 2s infinite alternate;
+        }
+        
+        @keyframes pulseText {
+            from {
+                opacity: 0.8;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .hero-tagline::before {
+            content: '';
+            width: 3rem;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .hero-heading {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        /* Enhanced Glitch Animation for Hero Heading */
+        .glitch-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .glitch {
+            position: relative;
+            color: var(--light);
+            animation: glitch-skew 1s infinite linear alternate-reverse;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            clip: rect(0, 900px, 0, 0);
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--secondary);
+            animation: glitch-animation-1 5s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: 2px 0 var(--accent);
+            animation: glitch-animation-2 3s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-animation-1 {
+            0% {
+                clip: rect(36px, 9999px, 9px, 0);
+            }
+            5% {
+                clip: rect(85px, 9999px, 66px, 0);
+            }
+            10% {
+                clip: rect(43px, 9999px, 98px, 0);
+            }
+            15% {
+                clip: rect(59px, 9999px, 26px, 0);
+            }
+            20% {
+                clip: rect(57px, 9999px, 69px, 0);
+            }
+            25% {
+                clip: rect(29px, 9999px, 94px, 0);
+            }
+            30% {
+                clip: rect(22px, 9999px, 23px, 0);
+            }
+            35% {
+                clip: rect(69px, 9999px, 30px, 0);
+            }
+            40% {
+                clip: rect(88px, 9999px, 37px, 0);
+            }
+            45% {
+                clip: rect(81px, 9999px, 72px, 0);
+            }
+            50% {
+                clip: rect(31px, 9999px, 49px, 0);
+            }
+            55% {
+                clip: rect(9px, 9999px, 35px, 0);
+            }
+            60% {
+                clip: rect(36px, 9999px, 36px, 0);
+            }
+            65% {
+                clip: rect(80px, 9999px, 82px, 0);
+            }
+            70% {
+                clip: rect(23px, 9999px, 60px, 0);
+            }
+            75% {
+                clip: rect(65px, 9999px, 5px, 0);
+            }
+            80% {
+                clip: rect(32px, 9999px, 19px, 0);
+            }
+            85% {
+                clip: rect(84px, 9999px, 38px, 0);
+            }
+            90% {
+                clip: rect(58px, 9999px, 57px, 0);
+            }
+            95% {
+                clip: rect(24px, 9999px, 93px, 0);
+            }
+            100% {
+                clip: rect(10px, 9999px, 10px, 0);
+            }
+        }
+        
+        @keyframes glitch-animation-2 {
+            0% {
+                clip: rect(96px, 9999px, 3px, 0);
+            }
+            5% {
+                clip: rect(24px, 9999px, 21px, 0);
+            }
+            10% {
+                clip: rect(75px, 9999px, 75px, 0);
+            }
+            15% {
+                clip: rect(48px, 9999px, 35px, 0);
+            }
+            20% {
+                clip: rect(51px, 9999px, 46px, 0);
+            }
+            25% {
+                clip: rect(46px, 9999px, 2px, 0);
+            }
+            30% {
+                clip: rect(44px, 9999px, 96px, 0);
+            }
+            35% {
+                clip: rect(31px, 9999px, 69px, 0);
+            }
+            40% {
+                clip: rect(31px, 9999px, 88px, 0);
+            }
+            45% {
+                clip: rect(66px, 9999px, 68px, 0);
+            }
+            50% {
+                clip: rect(80px, 9999px, 68px, 0);
+            }
+            55% {
+                clip: rect(28px, 9999px, 86px, 0);
+            }
+            60% {
+                clip: rect(42px, 9999px, 1px, 0);
+            }
+            65% {
+                clip: rect(61px, 9999px, 98px, 0);
+            }
+            70% {
+                clip: rect(93px, 9999px, 53px, 0);
+            }
+            75% {
+                clip: rect(6px, 9999px, 41px, 0);
+            }
+            80% {
+                clip: rect(84px, 9999px, 88px, 0);
+            }
+            85% {
+                clip: rect(38px, 9999px, 73px, 0);
+            }
+            90% {
+                clip: rect(82px, 9999px, 13px, 0);
+            }
+            95% {
+                clip: rect(67px, 9999px, 55px, 0);
+            }
+            100% {
+                clip: rect(40px, 9999px, 31px, 0);
+            }
+        }
+        
+        @keyframes glitch-skew {
+            0% {
+                transform: skew(0deg);
+            }
+            10% {
+                transform: skew(0deg);
+            }
+            11% {
+                transform: skew(5deg);
+            }
+            12% {
+                transform: skew(0deg);
+            }
+            20% {
+                transform: skew(0deg);
+            }
+            21% {
+                transform: skew(-5deg);
+            }
+            22% {
+                transform: skew(0deg);
+            }
+            100% {
+                transform: skew(0deg);
+            }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: shine 3s linear infinite;
+        }
+        
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+        
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            margin-bottom: 2.5rem;
+            max-width: 90%;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            animation: fadeIn 1.8s ease-out;
+        }
+        
+        .secondary-button {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid transparent;
+            border-radius: 50px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            padding: 0.9rem 2rem;
+            letter-spacing: 1px;
+        }
+        
+        .secondary-button::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--accent), var(--secondary), var(--primary), var(--accent));
+            z-index: -2;
+            border-radius: 50px;
+            background-size: 400%;
+            animation: animate-border 3s linear infinite;
+        }
+        
+        .secondary-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--darker);
+            z-index: -1;
+            border-radius: 50px;
+        }
+        
+        @keyframes animate-border {
+            0% {
+                background-position: 0 0;
+            }
+            50% {
+                background-position: 100% 0;
+            }
+            100% {
+                background-position: 0 0;
+            }
+        }
+        
+        .secondary-button:hover {
+            color: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 245, 255, 0.3);
+        }
+        
+        .secondary-button:hover::after {
+            background: rgba(5, 5, 16, 0.9);
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+            animation: fadeIn 2s ease-out;
+        }
+        
+        .stat {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .stat::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--accent), transparent);
+        }
+        
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--light);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .hero-image {
+            width: 45%;
+            position: relative;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .planet-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            perspective: 1000px;
+        }
+        
+        .planet {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), #4B0082, #2E0854);
+            box-shadow: 
+                0 0 60px rgba(138, 43, 226, 0.5),
+                inset 0 0 50px rgba(0, 0, 0, 0.5),
+                inset 20px -20px 50px rgba(255, 255, 255, 0.1);
+            animation: rotate3D 20s linear infinite;
+        }
+        
+        .planet::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h100v100H0z' fill='none'/%3E%3Cpath d='M20 20c10 0 10 10 20 10s10-10 20-10 10 10 20 10' stroke='rgba(255,255,255,0.1)' stroke-width='1' fill='none'/%3E%3Cpath d='M30 40c10 0 10 10 20 10s10-10 20-10 10 10 20 10' stroke='rgba(255,255,255,0.1)' stroke-width='1' fill='none'/%3E%3Cpath d='M20 60c10 0 10 10 20 10s10-10 20-10 10 10 20 10' stroke='rgba(255,255,255,0.1)' stroke-width='1' fill='none'/%3E%3C/svg%3E") repeat;
+            opacity: 0.3;
+            animation: rotate-texture 30s linear infinite reverse;
+        }
+        
+        @keyframes rotate-texture {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: 100% 100%;
+            }
+        }
+        
+        @keyframes rotate3D {
+            from {
+                transform: translate(-50%, -50%) rotateY(0deg) rotateX(20deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotateY(360deg) rotateX(20deg);
+            }
+        }
+        
+        .planet-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(75deg);
+            width: 450px;
+            height: 100px;
+            border-radius: 50%;
+            border: 10px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+            animation: pulseRing 4s infinite alternate;
+            overflow: hidden;
+        }
+        
+        .planet-ring::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.1), 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            animation: ring-shine 5s linear infinite;
+        }
+        
+        @keyframes ring-shine {
+            0% {
+                transform: translateX(-50%);
+            }
+            100% {
+                transform: translateX(50%);
+            }
+        }
+        
+        @keyframes pulseRing {
+            from {
+                box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+            }
+            to {
+                box-shadow: 0 0 40px rgba(0, 245, 255, 0.8);
+            }
+        }
+        
+        .planet-atmosphere {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(0, 245, 255, 0.2) 0%, transparent 70%);
+            animation: pulse 4s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            from {
+                opacity: 0.5;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            to {
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+        
+        .astronaut {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            animation: float-astronaut 15s linear infinite;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .astronaut:hover {
+            transform: scale(1.2);
+        }
+        
+        .astronaut-1 {
+            top: 20%;
+            left: 10%;
+        }
+        
+        .astronaut-2 {
+            top: 70%;
+            right: 15%;
+            animation-delay: 5s;
+            animation-duration: 20s;
+        }
+        
+        @keyframes float-astronaut {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(100px, -50px) rotate(90deg);
+            }
+            50% {
+                transform: translate(200px, 0) rotate(180deg);
+            }
+            75% {
+                transform: translate(100px, 50px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+        
+        .astronaut-body {
+            position: absolute;
+            width: 30px;
+            height: 40px;
+            background-color: white;
+            border-radius: 20px;
+            top: 10px;
+            left: 15px;
+        }
+        
+        .astronaut-helmet {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.8), rgba(138, 43, 226, 0.8));
+            border-radius: 50%;
+            top: 0;
+            left: 17.5px;
+            box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+        }
+        
+        .astronaut-arm {
+            position: absolute;
+            width: 20px;
+            height: 8px;
+            background-color: white;
+            border-radius: 4px;
+        }
+        
+        .astronaut-arm-left {
+            transform: rotate(45deg);
+            top: 20px;
+            left: 5px;
+        }
+        
+        .astronaut-arm-right {
+            transform: rotate(-45deg);
+            top: 20px;
+            right: 5px;
+        }
+        
+        .astronaut-leg {
+            position: absolute;
+            width: 8px;
+            height: 20px;
+            background-color: white;
+            border-radius: 4px;
+            bottom: 0;
+        }
+        
+        .astronaut-leg-left {
+            left: 18px;
+        }
+        
+        .astronaut-leg-right {
+            right: 18px;
+        }
+        
+        .satellite {
+            position: absolute;
+            width: 80px;
+            height: 30px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 5px;
+            animation: satellite-orbit 30s linear infinite;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .satellite:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 20px var(--accent);
+        }
+        
+        .satellite::before {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 10px;
+            background-color: var(--accent);
+            top: 10px;
+            left: -45px;
+            border-radius: 5px;
+            transform: rotate(45deg);
+        }
+        
+        .satellite::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 10px;
+            background-color: var(--accent);
+            top: 10px;
+            right: -45px;
+            border-radius: 5px;
+            transform: rotate(-45deg);
+        }
+        
+        @keyframes satellite-orbit {
+            0% {
+                top: -50px;
+                right: -100px;
+                transform: rotate(0deg);
+            }
+            25% {
+                top: 25%;
+                right: 0;
+                transform: rotate(90deg);
+            }
+            50% {
+                top: 50%;
+                right: -100px;
+                transform: rotate(180deg);
+            }
+            75% {
+                top: 25%;
+                right: -200px;
+                transform: rotate(270deg);
+            }
+            100% {
+                top: -50px;
+                right: -100px;
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Launch Countdown */
+        .countdown-container {
+            position: absolute;
+            bottom: 100px;
+            right: 50px;
+            background: rgba(10, 10, 31, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2s ease-out;
+            z-index: 10;
+        }
+        
+        .countdown-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        
+        .countdown-timer {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .countdown-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            border-radius: 5px;
+            padding: 5px 10px;
+            min-width: 60px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .countdown-number::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: skewX(-30deg);
+            animation: countdown-shine 3s infinite;
+        }
+        
+        @keyframes countdown-shine {
+            0% {
+                left: -100%;
+            }
+            20%, 100% {
+                left: 100%;
+            }
+        }
+        
+        .countdown-label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Destinations Section */
+        .destinations {
+            padding: 100px 2rem;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+        }
+        
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .destination-card {
+            background: rgba(10, 10, 31, 0.5);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+            position: relative;
+            height: 400px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        
+        .destination-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        
+        .card-back {
+            transform: rotateY(180deg);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(10, 10, 31, 0.9), rgba(5, 5, 16, 0.95));
+        }
+        
+        .destination-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .destination-content {
+            padding: 20px;
+        }
+        
+        .destination-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--light);
+        }
+        
+        .destination-description {
+            font-size: 1rem;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+        
+        .destination-price {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .destination-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .destination-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: var(--text-dim);
+        }
+        
+        .destination-features li::before {
+            content: '✓';
+            color: var(--accent);
+        }
+        
+        .book-now-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: center;
+        }
+        
+        .book-now-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.3);
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            position: relative;
+            height: 300px;
+            margin: 50px 0;
+            overflow: hidden;
+        }
+        
+        .testimonial-bubble {
+            position: absolute;
+            background: rgba(10, 10, 31, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 300px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            animation: float-bubble var(--duration, 20s) linear infinite;
+        }
+        
+        @keyframes float-bubble {
+            0% {
+                transform: translate(var(--startX), var(--startY));
+            }
+            100% {
+                transform: translate(var(--endX), var(--endY));
+            }
+        }
+        
+        .testimonial-content {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--light);
+        }
+        
+        .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .author-name {
+            font-weight: 600;
+            color: var(--light);
+        }
+        
+        .author-title {
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+        
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            z-index: 10;
+            animation: fadeInUp 2s infinite alternate;
+        }
+        
+        .scroll-arrow {
+            width: 30px;
+            height: 30px;
+            border-right: 2px solid var(--accent);
+            border-bottom: 2px solid var(--accent);
+            transform: rotate(45deg);
+            animation: pulse 2s infinite;
+        }
+        
+        /* Attribution */
+        .attribution {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .attribution::before {
+            content: '★';
+            color: var(--secondary);
+        }
+        
+        .attribution span {
+            font-weight: 600;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero-heading {
+                font-size: 3.5rem;
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+            }
+            
+            .planet {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .planet-ring {
+                width: 380px;
+                height: 80px;
+            }
+            
+            .countdown-container {
+                right: 30px;
+                bottom: 80px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 3rem;
+            }
+            
+            .hero-text, .hero-image {
+                width: 100%;
+                padding-right: 0;
+            }
+            
+            .hero-tagline {
+                justify-content: center;
+            }
+            
+            .hero-description {
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .hero-cta {
+                justify-content: center;
+            }
+            
+            .hero-stats {
+                justify-content: center;
+            }
+            
+            .planet-container {
+                height: 400px;
+            }
+            
+            .countdown-container {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin: 30px auto 0;
+                max-width: 400px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero-heading {
+                font-size: 3rem;
+            }
+            
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 2rem 3rem;
+            }
+            
+            .planet {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .planet-ring {
+                width: 300px;
+                height: 60px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-heading {
+                font-size: 2.5rem;
+            }
+            
+            .hero-tagline {
+                font-size: 1rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .cta-button, .secondary-button {
+                width: 100%;
+            }
+            
+            .planet-container {
+                height: 300px;
+            }
+            
+            .attribution {
+                bottom: 1rem;
+                right: 1rem;
+            }
+            
+            .countdown-timer {
+                gap: 10px;
+            }
+            
+            .countdown-number {
+                font-size: 1.5rem;
+                min-width: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="aurora-container">
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
+        <div class="aurora aurora-3"></div>
+    </div>
+    
+    <div class="stars-container" id="stars-container">
+        <!-- Stars will be generated by JavaScript -->
+    </div>
+    
+    <div class="parallax-container" id="parallax-container">
+        <!-- Parallax layers will be generated by JavaScript -->
+    </div>
+    
+    <div class="cursor-particle-container" id="cursor-particle-container">
+        <!-- Cursor particles will be generated by JavaScript -->
+    </div>
+    
+    <header id="header">
+        <nav>
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <div class="logo-planet"></div>
+                    <div class="logo-ring"></div>
+                </div>
+                <div class="logo-text">Astral Voyages</div>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li class="nav-item has-notification"><a href="#">Destinations</a></li>
+                <li><a href="#">Experiences</a></li>
+                <li><a href="#">Technology</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+            
+            <button class="cta-button">Book Your Journey</button>
+            <button class="menu-toggle">☰</button>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-tagline">Luxury Space Tourism</div>
+                <h1 class="hero-heading">
+                    Experience The 
+                    <div class="glitch-wrapper">
+                        <span class="glitch" data-text="Infinite">Infinite</span>
+                    </div>
+                    <span class="gradient-text">Beyond</span>
+                </h1>
+                <p class="hero-description">
+                    Astral Voyages offers exclusive journeys to the stars, combining cutting-edge technology 
+                    with unparalleled luxury. From orbital getaways to lunar expeditions, 
+                    we're redefining the boundaries of human exploration.
+                </p>
+                <div class="hero-cta">
+                    <button class="cta-button">Begin Your Adventure</button>
+                    <button class="secondary-button">Explore Destinations</button>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">1,500+</div>
+                        <div class="stat-label">Space Travelers</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Cosmic Destinations</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Safety Record</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <div class="planet-container">
+                    <div class="planet"></div>
+                    <div class="planet-ring"></div>
+                    <div class="planet-atmosphere"></div>
+                    
+                    <div class="astronaut astronaut-1">
+                        <div class="astronaut-body"></div>
+                        <div class="astronaut-helmet"></div>
+                        <div class="astronaut-arm astronaut-arm-left"></div>
+                        <div class="astronaut-arm astronaut-arm-right"></div>
+                        <div class="astronaut-leg astronaut-leg-left"></div>
+                        <div class="astronaut-leg astronaut-leg-right"></div>
+                    </div>
+                    
+                    <div class="astronaut astronaut-2">
+                        <div class="astronaut-body"></div>
+                        <div class="astronaut-helmet"></div>
+                        <div class="astronaut-arm astronaut-arm-left"></div>
+                        <div class="astronaut-arm astronaut-arm-right"></div>
+                        <div class="astronaut-leg astronaut-leg-left"></div>
+                        <div class="astronaut-leg astronaut-leg-right"></div>
+                    </div>
+                    
+                    <div class="satellite"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="countdown-container">
+            <div class="countdown-title">NEXT LAUNCH</div>
+            <div class="countdown-timer" id="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">00</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <span>Discover More</span>
+            <div class="scroll-arrow"></div>
+        </div>
+        
+        <div class="attribution">Created by <span>Amit Chaudhari</span></div>
+    </section>
+    
+    <section class="destinations" id="destinations">
+        <h2 class="section-title">Popular Destinations</h2>
+        <div class="destinations-grid">
+            <div class="destination-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <svg class="destination-image" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <radialGradient id="moonGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                                    <stop offset="0%" stop-color="#FFFFFF" />
+                                    <stop offset="50%" stop-color="#E0E0E0" />
+                                    <stop offset="100%" stop-color="#AAAAAA" />
+                                </radialGradient>
+                                <filter id="moonGlow">
+                                    <feGaussianBlur stdDeviation="5" result="blur" />
+                                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                </filter>
+                            </defs>
+                            <rect width="400" height="250" fill="#0A0A1F" />
+                            <circle cx="200" cy="125" r="80" fill="url(#moonGradient)" filter="url(#moonGlow)" />
+                            <circle cx="160" cy="100" r="15" fill="#AAAAAA" opacity="0.7" />
+                            <circle cx="220" cy="90" r="10" fill="#AAAAAA" opacity="0.7" />
+                            <circle cx="250" cy="150" r="20" fill="#AAAAAA" opacity="0.7" />
+                            <circle cx="180" cy="160" r="12" fill="#AAAAAA" opacity="0.7" />
+                        </svg>
+                        <div class="destination-content">
+                            <h3 class="destination-name">Lunar Resort</h3>
+                            <p class="destination-description">Experience luxury in the Sea of Tranquility</p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h3 class="destination-name">Lunar Resort</h3>
+                        <p class="destination-price">From $250,000</p>
+                        <p class="destination-description">Our flagship lunar resort offers unparalleled views of Earth and luxury accommodations in the historic Sea of Tranquility.</p>
+                        <ul class="destination-features">
+                            <li>7-day stay in luxury suite</li>
+                            <li>Low-gravity recreation</li>
+                            <li>Guided moonwalk excursions</li>
+                            <li>Gourmet dining experience</li>
+                        </ul>
+                        <button class="book-now-btn">Book Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="destination-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <svg class="destination-image" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <radialGradient id="stationGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                                    <stop offset="0%" stop-color="#FFFFFF" />
+                                    <stop offset="100%" stop-color="#AAAAAA" />
+                                </radialGradient>
+                                <filter id="stationGlow">
+                                    <feGaussianBlur stdDeviation="3" result="blur" />
+                                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                </filter>
+                            </defs>
+                            <rect width="400" height="250" fill="#0A0A1F" />
+                            <circle cx="200" cy="125" r="100" fill="#0000AA" opacity="0.3" />
+                            <path d="M150,125 L250,125 M200,75 L200,175" stroke="#AAAAAA" stroke-width="10" />
+                            <rect x="170" y="95" width="60" height="60" fill="url(#stationGradient)" filter="url(#stationGlow)" />
+                            <rect x="140" y="115" width="30" height="20" fill="url(#stationGradient)" filter="url(#stationGlow)" />
+                            <rect x="230" y="115" width="30" height="20" fill="url(#stationGradient)" filter="url(#stationGlow)" />
+                            <rect x="190" y="65" width="20" height="30" fill="url(#stationGradient)" filter="url(#stationGlow)" />
+                            <rect x="190" y="155" width="20" height="30" fill="url(#stationGradient)" filter="url(#stationGlow)" />
+                        </svg>
+                        <div class="destination-content">
+                            <h3 class="destination-name">Orbital Station</h3>
+                            <p class="destination-description">Luxury accommodations in Earth's orbit</p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h3 class="destination-name">Orbital Station</h3>
+                        <p class="destination-price">From $150,000</p>
+                        <p class="destination-description">Our orbital luxury hotel offers breathtaking views of Earth from 400km above, with all the amenities of a 5-star experience.</p>
+                        <ul class="destination-features">
+                            <li>5-day orbital stay</li>
+                            <li>Zero-gravity suite</li>
+                            <li>Earth observation lounge</li>
+                            <li>Space walk experience</li>
+                        </ul>
+                        <button class="book-now-btn">Book Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="destination-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <svg class="destination-image" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <radialGradient id="marsGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                                    <stop offset="0%" stop-color="#FF6B4A" />
+                                    <stop offset="50%" stop-color="#E04A2A" />
+                                    <stop offset="100%" stop-color="#B03A1A" />
+                                </radialGradient>
+                                <filter id="marsGlow">
+                                    <feGaussianBlur stdDeviation="5" result="blur" />
+                                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                </filter>
+                            </defs>
+                            <rect width="400" height="250" fill="#0A0A1F" />
+                            <circle cx="200" cy="125" r="80" fill="url(#marsGradient)" filter="url(#marsGlow)" />
+                            <circle cx="160" cy="100" r="15" fill="#B03A1A" opacity="0.7" />
+                            <circle cx="220" cy="90" r="10" fill="#B03A1A" opacity="0.7" />
+                            <circle cx="250" cy="150" r="20" fill="#B03A1A" opacity="0.7" />
+                            <circle cx="180" cy="160" r="12" fill="#B03A1A" opacity="0.7" />
+                        </svg>
+                        <div class="destination-content">
+                            <h3 class="destination-name">Mars Expedition</h3>
+                            <p class="destination-description">Journey to the red planet</p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h3 class="destination-name">Mars Expedition</h3>
+                        <p class="destination-price">From $500,000</p>
+                        <p class="destination-description">Be among the first humans to set foot on Mars with our exclusive expedition packages to the red planet.</p>
+                        <ul class="destination-features">
+                            <li>14-day Mars surface stay</li>
+                            <li>Olympus Mons expedition</li>
+                            <li>Valles Marineris canyon tour</li>
+                            <li>Mars rover driving experience</li>
+                        </ul>
+                        <button class="book-now-btn">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="testimonials" id="testimonials">
+        <!-- Testimonial bubbles will be generated by JavaScript -->
+    </section>
+    
+    <script>
+        // Create stars
+        const starsContainer = document.getElementById('stars-container');
+        const starCount = 150;
+        
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            
+            // Random position
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            const size = Math.random() * 3 + 1;
+            const duration = Math.random() * 5 + 3;
+            const delay = Math.random() * 5;
+            const opacity = Math.random() * 0.5 + 0.5;
+            
+            star.style.left = `${posX}%`;
+            star.style.top = `${posY}%`;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.setProperty('--duration', `${duration}s`);
+            star.style.setProperty('--delay', `${delay}s`);
+            star.style.setProperty('--opacity', opacity);
+            
+            starsContainer.appendChild(star);
+        }
+        
+        // Create shooting stars
+        const shootingStarCount = 5;
+        
+        for (let i = 0; i < shootingStarCount; i++) {
+            const shootingStar = document.createElement('div');
+            shootingStar.classList.add('shooting-star');
+            
+            const posY = Math.random() * 50;
+            const angle = Math.random() * 20 - 10;
+            const duration = Math.random() * 10 + 10;
+            const delay = Math.random() * 15;
+            
+            shootingStar.style.top = `${posY}%`;
+            shootingStar.style.setProperty('--angle', `${angle}deg`);
+            shootingStar.style.setProperty('--duration', `${duration}s`);
+            shootingStar.style.setProperty('--delay', `${delay}s`);
+            
+            starsContainer.appendChild(shootingStar);
+        }
+        
+        // Create space debris
+        const debrisCount = 20;
+        const parallaxContainer = document.getElementById('parallax-container');
+        
+        for (let i = 0; i < debrisCount; i++) {
+            const debris = document.createElement('div');
+            debris.classList.add('space-debris');
+            
+            const size = Math.random() * 5 + 2;
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            const translateX = (Math.random() * 200 - 100) + 'px';
+            const translateY = (Math.random() * 200 - 100) + 'px';
+            const duration = Math.random() * 30 + 20;
+            
+            debris.style.setProperty('--size', `${size}px`);
+            debris.style.left = `${posX}%`;
+            debris.style.top = `${posY}%`;
+            debris.style.setProperty('--translateX', translateX);
+            debris.style.setProperty('--translateY', translateY);
+            debris.style.setProperty('--duration', `${duration}s`);
+            
+            parallaxContainer.appendChild(debris);
+        }
+        
+        // Create parallax layers
+        for (let i = 1; i <= 3; i++) {
+            const layer = document.createElement('div');
+            layer.classList.add('parallax-layer');
+            layer.setAttribute('data-depth', 0.1 * i);
+            parallaxContainer.appendChild(layer);
+        }
+        
+        // Parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const layers = document.querySelectorAll('.parallax-layer');
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            layers.forEach(layer => {
+                const depth = parseFloat(layer.getAttribute('data-depth'));
+                const moveX = (mouseX - centerX) * depth;
+                const moveY = (mouseY - centerY) * depth;
+                
+                layer.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        });
+        
+        // Cursor particles
+        const cursorParticleContainer = document.getElementById('cursor-particle-container');
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            createCursorParticle();
+        });
+        
+        function createCursorParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('cursor-particle');
+            
+            const size = Math.random() * 5 + 2;
+            const opacity = Math.random() * 0.5 + 0.2;
+            const colors = [
+                'var(--accent)',
+                'var(--secondary)',
+                'var(--primary)',
+                '#FFFFFF'
+            ];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            particle.style.setProperty('--size', `${size}px`);
+            particle.style.setProperty('--opacity', opacity);
+            particle.style.setProperty('--color', color);
+            particle.style.left = `${mouseX}px`;
+            particle.style.top = `${mouseY}px`;
+            
+            cursorParticleContainer.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.style.transform = `translate(${(Math.random() * 100 - 50)}px, ${(Math.random() * 100 - 50)}px)`;
+                particle.style.opacity = '0';
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 1000);
+            }, 10);
+        }
+        
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Countdown timer
+        function updateCountdown() {
+            // Set the launch date (30 days from now)
+            const now = new Date();
+            const launchDate = new Date(now);
+            launchDate.setDate(now.getDate() + 30);
+            
+            const diff = launchDate - now;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').innerText = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        
+        // Create testimonials
+        const testimonials = [
+            {
+                content: "The lunar resort exceeded all my expectations. The Earth-rise view from my suite was breathtaking!",
+                author: "Sarah J.",
+                title: "Lunar Explorer"
+            },
+            {
+                content: "Zero-gravity yoga in the orbital station was a life-changing experience. I'll definitely be back!",
+                author: "Michael T.",
+                title: "Space Tourist"
+            },
+            {
+                content: "Standing on the red soil of Mars was the culmination of a lifelong dream. Worth every penny!",
+                author: "Elena K.",
+                title: "Mars Pioneer"
+            },
+            {
+                content: "The staff aboard the orbital station were incredibly professional and made our anniversary trip unforgettable.",
+                author: "David & Lisa",
+                title: "Honeymooners"
+            }
+        ];
+        
+        const testimonialsContainer = document.getElementById('testimonials');
+        
+        testimonials.forEach((testimonial, index) => {
+            const bubble = document.createElement('div');
+            bubble.classList.add('testimonial-bubble');
+            
+            const startX = Math.random() * 100 + '%';
+            const startY = Math.random() * 100 + '%';
+            const endX = Math.random() * 100 + '%';
+            const endY = Math.random() * 100 + '%';
+            const duration = Math.random() * 30 + 30;
+            
+            bubble.style.setProperty('--startX', startX);
+            bubble.style.setProperty('--startY', startY);
+            bubble.style.setProperty('--endX', endX);
+            bubble.style.setProperty('--endY', endY);
+            bubble.style.setProperty('--duration', `${duration}s`);
+            
+            bubble.innerHTML = `
+                <div class="testimonial-content">"${testimonial.content}"</div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">${testimonial.author.charAt(0)}</div>
+                    <div class="author-info">
+                        <div class="author-name">${testimonial.author}</div>
+                        <div class="author-title">${testimonial.title}</div>
+                    </div>
+                </div>
+            `;
+            
+            testimonialsContainer.appendChild(bubble);
+        });
+        
+        // Button interactions
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function() {
+                alert('Welcome aboard! Our reservation system is preparing your cosmic journey.');
+            });
+        });
+        
+        document.querySelector('.secondary-button').addEventListener('click', function() {
+            document.getElementById('destinations').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        document.querySelectorAll('.book-now-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                alert('Thank you for your interest! Our space travel consultant will contact you shortly to customize your journey.');
+            });
+        });
+        
+        document.querySelectorAll('.astronaut, .satellite').forEach(element => {
+            element.addEventListener('click', function() {
+                alert('Our crew members and technology are ready to make your space journey safe and unforgettable!');
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96739f67732cf647',t:'MTc1Mzg2NTU3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
